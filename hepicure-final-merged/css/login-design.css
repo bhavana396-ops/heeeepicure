@@ -1,0 +1,745 @@
+/* =================================================================
+   HEPICURE — style.css
+   "We're delivering home." — premium home-cooked meal subscription
+   Theme: Apple restraint meets Indian heritage warmth.
+   ================================================================= */
+
+/* -----------------------------------------------------------------
+   1. DESIGN TOKENS
+   ----------------------------------------------------------------- */
+:root {
+  /* Backgrounds */
+  --color-ivory: #FBF3E6;
+  --color-cream: #F4E6D2;
+  --color-paper: #F1E3CF;
+  --color-white: #FFFDF8;
+
+  /* Primary (terracotta family) */
+  --color-terracotta: #C1592E;
+  --color-terracotta-dark: #9E3E22;
+  --color-burnt-orange: #A8441F;
+  --color-saffron: #E2963C;
+
+  /* Accents */
+  --color-olive: #74804B;
+  --color-leaf: #7C8F55;
+  --color-brown: #3E2A1E;
+  --color-brown-soft: #6B5240;
+  --color-copper: #B0703B;
+  --color-gold: #C89A46;
+
+  /* Semantic */
+  --color-text: var(--color-brown);
+  --color-text-muted: #7C6A57;
+  --color-border: rgba(62, 42, 30, 0.14);
+  --color-border-soft: rgba(62, 42, 30, 0.08);
+
+  /* Typography */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-script: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Radii & shadow */
+  --login-radius-lg: 28px;
+  --login-radius-md: 16px;
+  --login-radius-sm: 14px;
+  --login-radius-pill: 999px;
+  --shadow-card: 0 30px 70px -20px rgba(62, 42, 30, 0.28), 0 2px 8px rgba(62, 42, 30, 0.06);
+  --shadow-soft: 0 10px 24px -12px rgba(62, 42, 30, 0.22);
+  --shadow-btn: 0 12px 22px -10px rgba(168, 68, 31, 0.55);
+
+  /* Motion */
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* -----------------------------------------------------------------
+   2. RESET
+   ----------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background: var(--color-ivory);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1, p, ul { margin: 0; }
+ul { padding: 0; list-style: none; }
+button { font-family: inherit; cursor: pointer; }
+input { font-family: inherit; }
+a { color: inherit; text-decoration: none; }
+svg { display: block; }
+
+:focus-visible {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* -----------------------------------------------------------------
+   3. PAGE SHELL + AMBIENT TEXTURE
+   ----------------------------------------------------------------- */
+.hepicure-page {
+  position: relative;
+  min-height: 100vh;
+  isolation: isolate;
+}
+
+.hepicure-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(ellipse at 18% 8%, rgba(226, 150, 60, 0.14), transparent 55%),
+    radial-gradient(ellipse at 88% 92%, rgba(193, 89, 46, 0.12), transparent 55%),
+    linear-gradient(180deg, var(--color-ivory), var(--color-cream) 55%, var(--color-paper));
+}
+.hepicure-page::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.55;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(62, 42, 30, 0.035) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
+
+/* Whole-page ambient wash — one continuous terracotta-to-paper blend that
+   drifts across the full viewport (not just the panel gap), so the two
+   panels read as one warm surface rather than two separate blocks.
+   Lives as a fixed full-bleed layer sitting just above the base texture. */
+.blend-shape {
+  position: fixed;
+  inset: -10%;
+  z-index: -1;
+  pointer-events: none;
+  filter: blur(90px);
+  mix-blend-mode: multiply;
+  background:
+    radial-gradient(circle at 12% 15%,  rgba(226, 150, 60, 0.16) 0%, rgba(226, 150, 60, 0) 45%),
+    radial-gradient(circle at 40% 65%,  rgba(193, 89, 46, 0.10)  0%, rgba(193, 89, 46, 0)  42%),
+    radial-gradient(circle at 68% 22%,  rgba(226, 150, 60, 0.20) 0%, rgba(226, 150, 60, 0) 50%),
+    radial-gradient(circle at 58% 60%,  rgba(193, 89, 46, 0.14) 0%, rgba(193, 89, 46, 0) 50%),
+    radial-gradient(circle at 82% 90%,  rgba(193, 89, 46, 0.12) 0%, rgba(193, 89, 46, 0) 48%);
+  animation: blend-drift 22s var(--ease-premium) infinite alternate;
+}
+@keyframes blend-drift {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(-22px, 16px) scale(1.05); }
+}
+
+.corner-photo {
+  position: fixed;
+  width: clamp(420px, 34vw, 720px);
+  height: clamp(420px, 34vw, 720px);
+  z-index: 0;
+  pointer-events: none;
+  opacity: 1;
+  filter: saturate(1.12);
+  animation: photo-fade 1.6s var(--ease-premium) both;
+}
+@keyframes photo-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.corner-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: var(--color-paper);
+  /* Stronger contrast + saturation (was 1.03/1.06) and less sepia wash
+     (0.06 vs 0.1) — makes the visible core of each photo read as more
+     vivid and present within the same footprint, so it "feels" bigger
+     without any change to actual size or overlap risk. */
+  filter: sepia(0.06) saturate(1.22) brightness(1.05) contrast(1.14) blur(0.3px);
+  /* Contained fade: closest-side keeps the whole dissolve inside the
+     photo's own box so it never overruns into the content, but the solid
+     core is kept small (14%) and the fade is spread evenly across many
+     steps, so the transition itself is smooth rather than the photo
+     reading as a hard, cut-out shape sitting on the page. */
+  -webkit-mask-image: radial-gradient(circle closest-side at var(--mask-origin),
+    #000 0%, #000 14%,
+    rgba(0,0,0,0.85) 26%,
+    rgba(0,0,0,0.65) 38%,
+    rgba(0,0,0,0.46) 50%,
+    rgba(0,0,0,0.30) 62%,
+    rgba(0,0,0,0.17) 74%,
+    rgba(0,0,0,0.08) 86%,
+    rgba(0,0,0,0.02) 95%,
+    transparent 100%);
+          mask-image: radial-gradient(circle closest-side at var(--mask-origin),
+    #000 0%, #000 14%,
+    rgba(0,0,0,0.85) 26%,
+    rgba(0,0,0,0.65) 38%,
+    rgba(0,0,0,0.46) 50%,
+    rgba(0,0,0,0.30) 62%,
+    rgba(0,0,0,0.17) 74%,
+    rgba(0,0,0,0.08) 86%,
+    rgba(0,0,0,0.02) 95%,
+    transparent 100%);
+}
+/* Colour-blend overlay — matches the mask's stops exactly (same number of
+   steps, same percentages) so the tonal finish and the opacity fade move
+   together in lockstep across the whole transition, rather than one
+   finishing before the other and leaving a visible edge. */
+.corner-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle closest-side at var(--mask-origin),
+    transparent 0%,
+    transparent 14%,
+    rgba(251, 243, 230, 0.08) 26%,
+    rgba(251, 243, 230, 0.22) 38%,
+    rgba(251, 243, 230, 0.36) 50%,
+    rgba(251, 243, 230, 0.46) 62%,
+    rgba(251, 243, 230, 0.5) 74%,
+    rgba(251, 243, 230, 0.38) 86%,
+    rgba(251, 243, 230, 0.16) 95%,
+    transparent 100%);
+}
+.corner-photo--tl { top: -130px;    left: -130px;   --mask-origin: 32% 32%; }
+.corner-photo--tr { top: -130px;    right: -130px;  --mask-origin: 68% 32%; }
+.corner-photo--bl { bottom: -130px; left: -130px;   --mask-origin: 32% 68%; }
+.corner-photo--br { bottom: -130px; right: -130px;  --mask-origin: 68% 68%; }
+
+.motif-corner {
+  position: fixed;
+  width: 200px;
+  height: 200px;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.55;
+  animation: motif-fade 1.4s var(--ease-premium) both;
+}
+.motif-corner svg { width: 100%; height: 100%; }
+.motif-corner--tl { top: -30px; left: -30px; }
+.motif-corner--br { bottom: -30px; right: -30px; transform: rotate(180deg); }
+
+.motif-top-center {
+  position: fixed;
+  top: -34px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 68px;
+  height: 68px;
+  z-index: 2;
+  pointer-events: none;
+  filter: drop-shadow(0 6px 10px rgba(62, 42, 30, 0.15));
+  animation: emblem-fade 1.2s var(--ease-premium) both;
+}
+.motif-top-center svg { width: 100%; height: 100%; }
+
+@keyframes emblem-fade {
+  from { opacity: 0; transform: translateX(-50%) translateY(-8px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes motif-fade {
+  from { opacity: 0; }
+  to   { opacity: 0.55; }
+}
+
+/* -----------------------------------------------------------------
+   4. LAYOUT — TWO-PANE LOGIN SHELL
+   ----------------------------------------------------------------- */
+.login-shell {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  align-items: center;
+  max-width: 1440px;
+  margin: 0 auto;
+  gap: 2vw;
+}
+
+/* -----------------------------------------------------------------
+   5. BRAND PANEL (LEFT)
+   ----------------------------------------------------------------- */
+.brand-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6vw 3vw 8vw 6vw;
+  max-width: 620px;
+  animation: rise-in 0.9s var(--ease-premium) both;
+}
+
+.floating-deco {
+  position: absolute;
+  pointer-events: none;
+  filter: drop-shadow(0 6px 10px rgba(62, 42, 30, 0.12));
+}
+.floating-deco svg { width: 100%; height: 100%; }
+.deco--leaf-1     { width: 40px; top: 6%;  left: 1%;  animation: float-a 9s ease-in-out infinite; }
+.deco--leaf-2     { width: 30px; bottom: 20%; left: 4%; animation: float-b 11s ease-in-out infinite; }
+.deco--marigold-1 { width: 52px; top: 2%;  right: 4%; animation: float-a 12s ease-in-out infinite; }
+.deco--marigold-2 { width: 34px; bottom: 26%; right: 10%; animation: float-b 10s ease-in-out infinite; }
+
+@keyframes float-a {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-14px) rotate(6deg); }
+}
+@keyframes float-b {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(12px) rotate(-5deg); }
+}
+
+.brand-mark {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+.brand-mark__icon { width: 34px; height: 34px; flex-shrink: 0; }
+.brand-mark__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.75rem;
+  color: var(--color-terracotta-dark);
+  letter-spacing: 0.01em;
+}
+
+.brand-eyebrow {
+  margin-top: 8px;
+  margin-left: 46px;
+  font-size: 0.68rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.brand-divider {
+  margin-top: 26px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.brand-divider__spark {
+  width: 16px;
+  height: 16px;
+  color: var(--color-terracotta);
+  flex-shrink: 0;
+}
+.brand-divider__line {
+  width: 200px;
+  height: 1px;
+  background: var(--color-border);
+}
+
+.brand-headline {
+  margin-top: 18px;
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 5.4vw, 4.4rem);
+  line-height: 1.02;
+  font-weight: 700;
+  color: var(--color-brown);
+}
+.brand-headline em {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--color-terracotta);
+}
+
+.brand-copy {
+  margin-top: 20px;
+  max-width: 400px;
+  line-height: 1.65;
+  font-size: 1.02rem;
+  color: var(--color-text-muted);
+}
+
+/* CTA button — anchors the left panel above the stats row */
+.brand-cta {
+  margin-top: 28px;
+  margin-bottom: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  height: 56px;
+  padding: 0 26px;
+  border-radius: var(--login-radius-sm);
+  background: linear-gradient(135deg, var(--color-terracotta) 0%, var(--color-burnt-orange) 100%);
+  color: var(--color-white);
+  font-weight: 700;
+  font-size: 0.98rem;
+  box-shadow: var(--shadow-btn);
+  transition: transform 0.25s var(--ease-premium), box-shadow 0.25s var(--ease-premium), filter 0.25s var(--ease-premium);
+}
+.brand-cta__arrow { width: 16px; height: 16px; flex-shrink: 0; transition: transform 0.25s var(--ease-premium); }
+.brand-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 28px -10px rgba(168, 68, 31, 0.6);
+  filter: brightness(1.03);
+}
+.brand-cta:hover .brand-cta__arrow { transform: translateX(3px); }
+.brand-cta:active { transform: translateY(0); }
+
+/* Cuisine chips — quick, colorful category taste of the menu */
+.cuisine-chips {
+  margin-top: 22px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.cuisine-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 15px;
+  border-radius: var(--login-radius-pill);
+  font-size: 0.82rem;
+  font-weight: 600;
+  background: var(--color-white);
+  border: 1px solid var(--color-border-soft);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.25s var(--ease-premium), box-shadow 0.25s var(--ease-premium);
+}
+.cuisine-chip__emoji { font-size: 0.95rem; line-height: 1; }
+.cuisine-chip:hover { transform: translateY(-3px); box-shadow: 0 14px 26px -14px rgba(62, 42, 30, 0.3); }
+.cuisine-chip--spice { color: var(--color-terracotta-dark); background: rgba(193, 89, 46, 0.1); }
+.cuisine-chip--leaf  { color: #4C5735; background: rgba(124, 143, 85, 0.16); }
+.cuisine-chip--grain { color: var(--color-burnt-orange); background: rgba(226, 150, 60, 0.18); }
+.cuisine-chip--bread { color: var(--color-copper); background: rgba(176, 112, 59, 0.15); }
+
+/* -----------------------------------------------------------------
+   6. AUTH PANEL (RIGHT)
+   ----------------------------------------------------------------- */
+.auth-panel {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6vw 4vw;
+}
+
+.auth-card {
+  position: relative;
+  width: 100%;
+  max-width: 470px;
+  background: rgba(255, 253, 248, 0.92);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--login-radius-lg);
+  padding: 44px 40px 32px;
+  box-shadow: var(--shadow-card);
+  animation: card-in 0.9s var(--ease-premium) 0.15s both;
+}
+
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(24px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.auth-badge {
+  position: absolute;
+  top: -24px;
+  right: 28px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-terracotta);
+  color: var(--color-white);
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: left;
+  padding: 10px 16px;
+  border-radius: var(--login-radius-md);
+  box-shadow: var(--shadow-soft);
+}
+.auth-badge svg { width: 17px; height: 17px; flex-shrink: 0; }
+
+.auth-card__emblem {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 26px;
+  color: var(--color-terracotta);
+}
+.auth-card__emblem::before,
+.auth-card__emblem::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 38%;
+  height: 1px;
+  background: var(--color-border);
+}
+.auth-card__emblem::before { left: 0; }
+.auth-card__emblem::after  { right: 0; }
+.auth-card__emblem svg {
+  width: 16px;
+  height: 16px;
+  position: relative;
+  z-index: 1;
+  background: var(--color-white);
+}
+
+.field-group + .field-group { margin-top: 18px; }
+
+.field-label {
+  display: block;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-burnt-orange);
+  font-weight: 700;
+  margin-bottom: 9px;
+}
+
+.field-row {
+  display: flex;
+  gap: 12px;
+}
+
+.field-input-wrap {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
+  height: 54px;
+  border-radius: var(--login-radius-sm);
+  border: 1.4px solid var(--color-border);
+  background: var(--color-white);
+  transition: border-color 0.25s var(--ease-premium), box-shadow 0.25s var(--ease-premium);
+}
+.field-input-wrap:focus-within {
+  border-color: var(--color-terracotta);
+  box-shadow: 0 0 0 4px rgba(193, 89, 46, 0.12);
+}
+.field-icon {
+  width: 18px;
+  height: 18px;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+.field-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  padding: 0;
+  font-size: 0.94rem;
+  color: var(--color-text);
+}
+.field-input:focus { outline: none; }
+.field-input::placeholder { color: #B8A791; }
+
+/* Buttons */
+.btn {
+  border: none;
+  border-radius: var(--login-radius-sm);
+  font-weight: 600;
+  font-size: 0.9rem;
+  height: 54px;
+  padding: 0 20px;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  transition: transform 0.25s var(--ease-premium), box-shadow 0.25s var(--ease-premium), filter 0.25s var(--ease-premium);
+}
+.btn--primary {
+  color: var(--color-white);
+  background: var(--color-terracotta);
+  box-shadow: var(--shadow-btn);
+}
+.btn-arrow { width: 15px; height: 15px; flex-shrink: 0; }
+.btn--primary:hover  { transform: translateY(-2px); background: var(--color-terracotta-dark); box-shadow: 0 16px 26px -10px rgba(168, 68, 31, 0.6); }
+.btn--primary:active { transform: translateY(0); filter: brightness(0.98); }
+
+.btn--ghost {
+  width: 100%;
+  height: 54px;
+  margin-top: 20px;
+  justify-content: center;
+  background: var(--color-white);
+  border: 1.4px solid var(--color-border);
+  color: var(--color-text);
+}
+.btn--ghost:hover { transform: translateY(-2px); box-shadow: var(--shadow-soft); }
+.google-icon { width: 19px; height: 19px; flex-shrink: 0; }
+
+.or-divider {
+  position: relative;
+  z-index: 1;
+  width: fit-content;
+  margin: 20px auto;
+  padding: 0 14px;
+  background: var(--color-white);
+  text-align: center;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+.or-divider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -1000px;
+  right: -1000px;
+  height: 1px;
+  background: var(--color-border);
+  z-index: -1;
+}
+
+.skip-hint {
+  margin-top: 18px;
+  text-align: center;
+}
+.skip-hint button {
+  background: none;
+  border: none;
+  padding: 8px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--color-terracotta);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s var(--ease-premium);
+}
+.skip-hint button:hover { color: var(--color-terracotta-dark); }
+
+/* Trust pills */
+.pill-row {
+  margin-top: 22px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 15px;
+  border-radius: var(--login-radius-pill);
+  background: var(--color-cream);
+  color: var(--color-burnt-orange);
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+.pill svg { width: 15px; height: 15px; }
+
+.auth-legal {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 0.75rem;
+  line-height: 1.55;
+  color: var(--color-text-muted);
+}
+.auth-legal a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  color: var(--color-burnt-orange);
+  font-weight: 600;
+}
+
+.auth-card__footer-motif {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  color: var(--color-terracotta);
+}
+.auth-card__footer-motif svg { width: 16px; height: 16px; }
+
+/* -----------------------------------------------------------------
+   7. RESPONSIVE — TABLET
+   ----------------------------------------------------------------- */
+@media (max-width: 1080px) {
+  .login-shell { grid-template-columns: 1fr; gap: 0; }
+
+  .brand-panel {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 10vw 8vw 4vw;
+    align-items: center;
+    text-align: center;
+  }
+  .brand-mark { justify-content: center; }
+  .brand-eyebrow { margin-left: 0; }
+  .brand-divider { justify-content: center; }
+  .brand-divider__line { width: 120px; }
+  .brand-copy { margin-left: auto; margin-right: auto; }
+  .brand-cta { margin-left: auto; margin-right: auto; }
+  .cuisine-chips { justify-content: center; }
+
+  .auth-panel { padding: 4vw 8vw 12vw; }
+
+  .motif-corner { width: 140px; height: 140px; opacity: 0.4; }
+  .corner-photo { width: clamp(260px, 38vw, 400px); height: clamp(260px, 38vw, 400px); }
+  .corner-photo--tl { top: -75px; left: -75px; }
+  .corner-photo--tr { top: -75px; right: -75px; }
+  .corner-photo--bl { bottom: -75px; left: -75px; }
+  .corner-photo--br { bottom: -75px; right: -75px; }
+}
+
+/* -----------------------------------------------------------------
+   8. RESPONSIVE — MOBILE
+   ----------------------------------------------------------------- */
+@media (max-width: 560px) {
+  .brand-headline { font-size: clamp(2.2rem, 10vw, 2.8rem); }
+  .brand-copy { font-size: 0.98rem; }
+
+  .auth-card { padding: 36px 22px 28px; border-radius: var(--login-radius-md); }
+  .auth-badge { right: 20px; top: -20px; font-size: 0.66rem; padding: 8px 12px; }
+
+  .field-row { flex-direction: column; }
+  .btn--primary { width: 100%; justify-content: center; }
+
+  .deco--marigold-1 { width: 36px; }
+  .deco--marigold-2 { width: 26px; }
+  .deco--leaf-1, .deco--leaf-2 { width: 24px; }
+
+  .motif-corner { width: 100px; height: 100px; }
+  .corner-photo {
+    width: clamp(200px, 50vw, 300px);
+    height: clamp(200px, 50vw, 300px);
+  }
+  .corner-photo--tl { top: -55px; left: -55px; }
+  .corner-photo--tr { top: -55px; right: -55px; }
+  .corner-photo--bl { bottom: -55px; left: -55px; }
+  .corner-photo--br { bottom: -55px; right: -55px; }
+  .motif-top-center { width: 70px; height: 70px; top: -34px; opacity: 0.7; }
+}
+
+/* -----------------------------------------------------------------
+   9. REDUCED MOTION
+   ----------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+/* ---- error/note styling for the real auth flow (added during merge) ---- */
+.login-error{
+  background:#FBEAE5; color:#9E3E22; border:1px solid rgba(158,62,34,0.25);
+  padding:10px 14px; border-radius:var(--login-radius-sm); font-size:14px; margin:4px 0 14px;
+}
+.login-note{
+  background:#F1F7EC; color:#3E5E2A; border:1px solid rgba(62,94,42,0.2);
+  padding:10px 14px; border-radius:var(--login-radius-sm); font-size:14px; margin:4px 0 14px;
+}

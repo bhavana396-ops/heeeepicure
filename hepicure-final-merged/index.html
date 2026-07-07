@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hepicure — Welcome Home</title>
+<meta name="description" content="Sign in to Hepicure — home-cooked, medically approved meals from verified local chefs.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Cormorant+Garamond:ital@1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/login-design.css">
+</head>
+<body>
+
+<main class="hepicure-page">
+
+  <!-- Full-page ambient wash: lives at the page root (not inside a panel)
+       so position:fixed spans the whole viewport instead of being trapped
+       by the brand panel's transform-based entrance animation. -->
+  <div class="blend-shape" aria-hidden="true"></div>
+
+  <!-- Single full-bleed background photo. Replaces the four separate
+       corner photos — one photo, one blend (handled entirely in CSS
+       via .page-photo::after), no seams between images to reconcile. -->
+  <div class="corner-photo corner-photo--tl" aria-hidden="true">
+    <img src="assets/decor-top-left.jpg" alt="" loading="lazy">
+  </div>
+  <div class="corner-photo corner-photo--tr" aria-hidden="true">
+    <img src="assets/decor-top-right.jpg" alt="" loading="lazy">
+  </div>
+  <div class="corner-photo corner-photo--bl" aria-hidden="true">
+    <img src="assets/decor-bottom-left.jpg" alt="" loading="lazy">
+  </div>
+  <div class="corner-photo corner-photo--br" aria-hidden="true">
+    <img src="assets/decor-bottom-right.jpg" alt="" loading="lazy">
+  </div>
+
+  <div class="motif-corner motif-corner--tl" aria-hidden="true">
+    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="0" cy="0" r="60" stroke="#B0703B" stroke-width="0.6"/>
+      <circle cx="0" cy="0" r="90" stroke="#B0703B" stroke-width="0.6"/>
+      <circle cx="0" cy="0" r="120" stroke="#B0703B" stroke-width="0.4"/>
+      <path d="M0 0 L40 6 M0 0 L6 40 M0 0 L34 24 M0 0 L24 34" stroke="#C89A46" stroke-width="0.6"/>
+      <path d="M0 0 Q60 10 70 70 Q10 60 0 0 Z" stroke="#C1592E" stroke-width="0.5" fill="none"/>
+    </svg>
+  </div>
+  <div class="motif-corner motif-corner--br" aria-hidden="true">
+    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="0" cy="0" r="60" stroke="#B0703B" stroke-width="0.6"/>
+      <circle cx="0" cy="0" r="90" stroke="#B0703B" stroke-width="0.6"/>
+      <circle cx="0" cy="0" r="120" stroke="#B0703B" stroke-width="0.4"/>
+      <path d="M0 0 L40 6 M0 0 L6 40 M0 0 L34 24 M0 0 L24 34" stroke="#C89A46" stroke-width="0.6"/>
+      <path d="M0 0 Q60 10 70 70 Q10 60 0 0 Z" stroke="#C1592E" stroke-width="0.5" fill="none"/>
+    </svg>
+  </div>
+
+  <div class="motif-top-center" aria-hidden="true">
+    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g fill="#C1592E">
+        <circle cx="20" cy="8"  r="6"/>
+        <circle cx="20" cy="32" r="6"/>
+        <circle cx="8"  cy="20" r="6"/>
+        <circle cx="32" cy="20" r="6"/>
+        <circle cx="11" cy="11" r="6"/>
+        <circle cx="29" cy="11" r="6"/>
+        <circle cx="11" cy="29" r="6"/>
+        <circle cx="29" cy="29" r="6"/>
+      </g>
+      <circle cx="20" cy="20" r="7" fill="#9E3E22"/>
+    </svg>
+  </div>
+
+  <div class="login-shell">
+
+    <!-- ============ LEFT: BRAND PANEL ============ -->
+    <section class="brand-panel" aria-label="About Hepicure">
+
+      <div class="floating-deco deco--leaf-1" aria-hidden="true">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 2C10 8 4 18 4 26c0 6 5 10 10 10 8 0 14-8 14-20 0-6-3-11-8-14Z" fill="#7C8F55" opacity="0.85"/>
+          <path d="M14 34C14 24 16 12 20 4" stroke="#3F2A1D" stroke-width="1" opacity="0.5"/>
+        </svg>
+      </div>
+      <div class="floating-deco deco--leaf-2" aria-hidden="true">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 2C10 8 4 18 4 26c0 6 5 10 10 10 8 0 14-8 14-20 0-6-3-11-8-14Z" fill="#6E7A4B" opacity="0.8"/>
+        </svg>
+      </div>
+      <div class="floating-deco deco--marigold-1" aria-hidden="true">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g fill="#E0923F">
+            <circle cx="20" cy="8" r="5"/><circle cx="20" cy="32" r="5"/>
+            <circle cx="8" cy="20" r="5"/><circle cx="32" cy="20" r="5"/>
+            <circle cx="11" cy="11" r="5"/><circle cx="29" cy="11" r="5"/>
+            <circle cx="11" cy="29" r="5"/><circle cx="29" cy="29" r="5"/>
+          </g>
+          <circle cx="20" cy="20" r="6" fill="#B8471F"/>
+        </svg>
+      </div>
+      <div class="floating-deco deco--marigold-2" aria-hidden="true">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g fill="#C89A46">
+            <circle cx="20" cy="8" r="5"/><circle cx="20" cy="32" r="5"/>
+            <circle cx="8" cy="20" r="5"/><circle cx="32" cy="20" r="5"/>
+          </g>
+          <circle cx="20" cy="20" r="6" fill="#B8471F"/>
+        </svg>
+      </div>
+
+      <div class="brand-mark">
+        <svg class="brand-mark__icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="20" cy="20" r="6" fill="#C1592E"/>
+          <circle cx="20" cy="6"  r="6" fill="#C1592E" opacity="0.85"/>
+          <circle cx="20" cy="34" r="6" fill="#C1592E" opacity="0.85"/>
+          <circle cx="6"  cy="20" r="6" fill="#C1592E" opacity="0.85"/>
+          <circle cx="34" cy="20" r="6" fill="#C1592E" opacity="0.85"/>
+        </svg>
+        <span class="brand-mark__name">Hepicure</span>
+      </div>
+      <p class="brand-eyebrow">The Food Boutique</p>
+
+      <div class="brand-divider" aria-hidden="true">
+        <svg class="brand-divider__spark" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2l2.4 7.4L22 12l-7.6 2.6L12 22l-2.4-7.4L2 12l7.6-2.6z"/>
+        </svg>
+        <span class="brand-divider__line"></span>
+      </div>
+
+      <h1 class="brand-headline">Welcome<br><em>home.</em></h1>
+
+      <p class="brand-copy">
+        No white rice, no guesswork. Every tiffin is portioned against your
+        diet chart and cooked by a home cook, not a commercial kitchen.
+      </p>
+
+      <div class="cuisine-chips" role="list" aria-label="Diet categories">
+        <span class="cuisine-chip cuisine-chip--spice" role="listitem"><span class="cuisine-chip__emoji">🩸</span>Diabetic-Friendly</span>
+        <span class="cuisine-chip cuisine-chip--leaf" role="listitem"><span class="cuisine-chip__emoji">🧂</span>Low-Sodium</span>
+        <span class="cuisine-chip cuisine-chip--grain" role="listitem"><span class="cuisine-chip__emoji">🌾</span>Millet-Based</span>
+        <span class="cuisine-chip cuisine-chip--bread" role="listitem"><span class="cuisine-chip__emoji">🫀</span>Cardiac-Safe</span>
+      </div>
+
+      <a href="#" class="brand-cta" onclick="hepicureSkip(); return false;">
+        Explore Tiffin Menus
+        <svg class="brand-cta__arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </section>
+
+    <!-- ============ RIGHT: AUTH PANEL ============ -->
+    <section class="auth-panel" aria-label="Sign in to Hepicure">
+      <div class="auth-card">
+
+        <div class="auth-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C9 6 6 9 6 13a6 6 0 0012 0c0-4-3-7-6-11z" stroke="currentColor" stroke-width="1.6"/></svg>
+          <span>Diet-aware<br>tiffins</span>
+        </div>
+
+        <div class="auth-card__emblem" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2l2.4 7.4L22 12l-7.6 2.6L12 22l-2.4-7.4L2 12l7.6-2.6z"/>
+          </svg>
+        </div>
+
+        <div id="login-form">
+
+          <div class="field-group">
+            <label class="field-label" for="email-input">Email</label>
+            <div class="field-row">
+              <div class="field-input-wrap">
+                <svg class="field-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 6.5h18v11a1.5 1.5 0 01-1.5 1.5h-15A1.5 1.5 0 013 17.5v-11z" stroke="currentColor" stroke-width="1.5"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <input class="field-input" type="email" id="email-input" name="email" placeholder="you@example.com" autocomplete="email">
+              </div>
+              <button type="button" class="btn btn--primary" onclick="hepicureContinueEmail()">
+                Continue
+                <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="phone-input">Phone number</label>
+            <div class="field-row">
+              <div class="field-input-wrap">
+                <svg class="field-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.5 3h3l1.5 4-2 1.5a11 11 0 005.5 5.5L16 12l4 1.5v3a2 2 0 01-2.2 2C10.4 18 6 13.6 5.5 6.2A2 2 0 016.5 3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+                <input class="field-input" type="tel" id="phone-input" name="phone" placeholder="+91 98765 43210" autocomplete="tel">
+              </div>
+              <button type="button" class="btn btn--primary" onclick="hepicureContinuePhone()">
+                Continue
+                <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="login-error" id="login-error" style="display:none;"></div>
+        <div class="login-note" id="login-note" style="display:none;"></div>
+
+        <div class="or-divider">OR</div>
+
+        <button type="button" class="btn btn--ghost" onclick="hepicureContinueGoogle()">
+          <svg class="google-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.6-6 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.8 1.1 7.9 2.9l6-6C34.5 5.1 29.5 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21 21-9.4 21-21c0-1.4-.1-2.5-.4-3.5z"/>
+            <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.9 18.9 13 24 13c3 0 5.8 1.1 7.9 2.9l6-6C34.5 5.1 29.5 3 24 3c-7.6 0-14.1 4.3-17.7 10.7z"/>
+            <path fill="#4CAF50" d="M24 45c5.4 0 10.3-2.1 14-5.5l-6.5-5.3C29.5 35.9 26.9 37 24 37c-5.2 0-9.6-3.3-11.2-7.9l-6.6 5.1C9.8 40.6 16.4 45 24 45z"/>
+            <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.2 4.2-4 5.6l6.5 5.3C41.5 36.1 45 30.6 45 24c0-1.4-.1-2.5-.4-3.5z"/>
+          </svg>
+          Continue with Google
+        </button>
+
+        <div class="skip-hint">
+          <button type="button" onclick="hepicureSkip()">Skip for now</button>
+        </div>
+
+        <div class="pill-row">
+          <span class="pill">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l7 3v6c0 5-3.5 8.5-7 11-3.5-2.5-7-6-7-11V5l7-3z" stroke="currentColor" stroke-width="1.8"/></svg>
+            Doctor-guided menus
+          </span>
+          <span class="pill">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 11l9-7 9 7M5 10v9a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1v-9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            No added sugar
+          </span>
+          <span class="pill">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="4" width="18" height="17" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 2v4M16 2v4M3 9h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Pause anytime
+          </span>
+        </div>
+
+        <p class="auth-legal">
+          By continuing you agree to Hepicure's <a href="#">Terms</a> &amp; <a href="#">Privacy Policy</a>.
+        </p>
+
+        <div class="auth-card__footer-motif" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2l2.4 7.4L22 12l-7.6 2.6L12 22l-2.4-7.4L2 12l7.6-2.6z"/>
+          </svg>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/auth.js"></script>
+<script>
+  // If already signed in (or browsing as guest), skip straight to home.
+  hepicureRedirectIfSignedIn();
+</script>
+</body>
+</html>
