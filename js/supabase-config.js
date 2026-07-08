@@ -23,7 +23,7 @@
 //    - Redirect URLs: add that same URL + "/home.html"
 // ============================================================
 
-const SUPABASE_URL = 'https://mxspeazihzpkuvnobcsm.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_kdvAc52YywObsx-lVzoF_g_HYotzAqv';
+const SUPABASE_URL ='https://kdcdrboikfsqtjksjgkk.supabase.co/rest/v1/';
+const SUPABASE_ANON_KEY ='sb_publishable_OueNDTOem3n4yumj6VamKA_rtUZzL1k';
 
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
